@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.3D Sprite Test.iml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Game Dev\Unity\Projects\Tutorials\3D Sprite Test\.idea\.idea.3D Sprite Test\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
