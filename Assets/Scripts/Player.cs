@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
         }
 
         // Attacking
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             Attack();
         }
@@ -154,21 +154,12 @@ public class Player : MonoBehaviour
         weaponAnimator.SetBool(moveBool, hasMovementInput);
     }
 
-    private bool canAttack = true;
     private void Attack()
     {
-        if (!canAttack) return;
-        
-        weapon.Attack(ctx);
-        weaponAnimator.SetTrigger(attackTrigger);
-        
-        StartCoroutine(nameof(AttackTime));
-    }
-    private IEnumerator AttackTime()
-    {
-        canAttack = false;
-        yield return new WaitForSeconds(weapon.attackTime);
-        canAttack = true;
+        if (weapon.Attack(ctx))
+        {
+            weaponAnimator.SetTrigger(attackTrigger);
+        }
     }
 
     private void StabilizeXZ()

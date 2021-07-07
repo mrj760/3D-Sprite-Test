@@ -13,7 +13,7 @@ public class HookHairHead : Enemy
 
     private AudioSource audsc;
     [SerializeField] private 
-        AudioClip hurtSound;
+        AudioClip hurtSound, dieSound;
 
     private enum LifeState
     {
@@ -57,7 +57,7 @@ public class HookHairHead : Enemy
         {
             case Face.happy:
                 // move toward player with grin
-                SeekTarget(playerObj.transform.position);
+                SeekTarget(playerObj.transform.position, 1.5f);
                 break;
             
             case Face.scared:
@@ -65,7 +65,7 @@ public class HookHairHead : Enemy
                 var vec = 
                     transform.position + 
                     (transform.position - playerObj.transform.position);
-                SeekTarget(vec, 2f);
+                SeekTarget(vec, 1f);
                 break;
             
             case Face.pain:
@@ -76,14 +76,17 @@ public class HookHairHead : Enemy
 
     public override void TakeDamage(float damage)
     {
+        
+        
+        StopCoroutine(nameof(BloodSpurt));
         SetFace(Face.pain);
         base.TakeDamage(damage);
-
+        
         if (lifeState != LifeState.Alive) return;
         
         StartCoroutine(nameof(BloodSpurt));
-        audsc.Stop();
-        audsc.pitch = 
+        // audsc.Stop();
+        audsc.pitch =    
             Random.Range(.95f, 1.05f);
         audsc.PlayOneShot(hurtSound);
         
@@ -139,18 +142,21 @@ public class HookHairHead : Enemy
         if (lifeState == LifeState.Dying) { return; }
         
         lifeState = LifeState.Dying;
-        
-        bloodfx.transform.localScale *= 3f;
+
+        StopCoroutine(nameof(BloodSpurt));
+        bloodfx.transform.localScale *= 2f;
         var main = bloodfx.main;
         /**/    main.simulationSpeed *= 3f;
         bloodfx.Play();
+
+        audsc.PlayOneShot(dieSound);
         
         StartCoroutine(nameof(Die_CR));
     }
     
     private IEnumerator Die_CR()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         base.Die();
     }
 }

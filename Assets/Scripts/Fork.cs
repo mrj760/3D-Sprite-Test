@@ -11,15 +11,16 @@ public class Fork : Weapon
         protected set { }
     }
 
-    public override void Attack(Transform ctx)
+    protected override void DoAttack(Transform ctx)
     {
+        
+        
         // First check along a line from the camera, then if nothing found try a wider range cast.
         // A regular raycast is needed for when checking immediately in front of the player.
         //      -- the sphere cast will miss anything that is inside it at its time of creation.
         
         if (Physics.Raycast(ctx.position, ctx.forward, out var hit, range))
         {
-            // Debug.Log(hit.transform.name);
             if (hit.transform.CompareTag("Enemy"))
             {
                 hit.transform.GetComponent<Enemy>().TakeDamage(damage);
@@ -29,12 +30,11 @@ public class Fork : Weapon
         
         if (Physics.SphereCast(ctx.position, radius, ctx.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
-
             if (hit.transform.CompareTag("Enemy"))
             {
                 hit.transform.GetComponent<Enemy>().TakeDamage(damage);
             }
         }
     }
+
 }

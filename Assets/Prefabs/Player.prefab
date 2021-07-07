@@ -82,7 +82,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ptx: {fileID: 3043338947235441947}
   lookSens: 350
+  yLookMult: 1.2
+  xLookMult: 1.5
 --- !u!1001 &3744139267798320429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -293,8 +295,13 @@ PrefabInstance:
     - target: {fileID: 1027373248744930556, guid: a4fbb48a5f4e03542911f2c93678c453,
         type: 3}
       propertyPath: attackTime
-      value: 0.25
+      value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1027373248744930556, guid: a4fbb48a5f4e03542911f2c93678c453,
+        type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 33f4c6fe9ee47f94884c82ca5a40e1f0, type: 3}
     - target: {fileID: 1482151966182543603, guid: a4fbb48a5f4e03542911f2c93678c453,
         type: 3}
       propertyPath: m_RootOrder
