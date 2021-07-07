@@ -85,7 +85,6 @@ public class HookHairHead : Enemy
         if (lifeState != LifeState.Alive) return;
         
         StartCoroutine(nameof(BloodSpurt));
-        // audsc.Stop();
         audsc.pitch =    
             Random.Range(.95f, 1.05f);
         audsc.PlayOneShot(hurtSound);

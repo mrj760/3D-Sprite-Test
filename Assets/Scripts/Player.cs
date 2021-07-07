@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private CharacterController cc;
     
     [SerializeField] private Transform ctx;
-    [SerializeField] private float moveSpeed=20f, jumpVelocity=5f;
+    [SerializeField] private float moveSpeed=20f, jumpSpeed=5f, jumpTime = .33f;
     
     [Header("Gravity")]
     [SerializeField] private 
@@ -105,30 +105,38 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        movDir = 
+        var dir = 
             tx.forward * vinp + tx.right * hinp;
-        movDir.Normalize();
-        movDir.y += Fall();
+        dir.Normalize();
+
+        movDir.y = 
+            cc.isGrounded ? 0 : movDir.y + FallAccel();
+        dir.y = movDir.y;
+        
+        movDir = dir;
         cc.Move(movDir * (moveSpeed * Time.deltaTime));
     }
 
     private void Jump()
     {
-        cc.Move(Vector3.up * (jumpVelocity * Time.deltaTime));
+        // cc.Move(Vector3.up * (jumpVelocity * Time.deltaTime));
+        movDir.y = jumpSpeed;
+        gravEnabled = false;
+        StartCoroutine(nameof(EndJump));
     }
 
-    private float Fall()
+    private IEnumerator EndJump()
     {
-        if (gravEnabled)
-        {
-            gravVel -= 
-                gravAccel * Time.deltaTime;
-            gravVel = 
-                Mathf.Max(gravVel, gravMax);
-            return gravVel;
-        }
+        yield return new WaitForSeconds(jumpTime);
+        gravEnabled = true;
+        movDir.y = 0;
+    }
 
-        return movDir.y;
+    private float FallAccel()
+    {
+        if (!gravEnabled || movDir.y < gravMax) return 0;
+
+        return -gravAccel * Time.deltaTime;
     }
 
     private void CheckGrav()
