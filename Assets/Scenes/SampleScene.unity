@@ -1369,31 +1369,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1090322129, guid: 617c4ca45b5d0e44687e85065de797da, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: c5dd34f14c4c0c64cafa821fa3d64854,
-        type: 2}
-    - target: {fileID: 3678272828684301025, guid: 617c4ca45b5d0e44687e85065de797da,
-        type: 3}
-      propertyPath: dieSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 7f7550a5d2bd18e40823ac6efe93ff24, type: 3}
-    - target: {fileID: 5478453932498851821, guid: 617c4ca45b5d0e44687e85065de797da,
-        type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5478453932498851821, guid: 617c4ca45b5d0e44687e85065de797da,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8bd4722c75a5cd749bc8eb906fc5dbae, type: 3}
-    - target: {fileID: 5478453932498851821, guid: 617c4ca45b5d0e44687e85065de797da,
-        type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5691425762731366050, guid: 617c4ca45b5d0e44687e85065de797da,
         type: 3}
       propertyPath: m_Name
@@ -1657,26 +1632,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3043338947235441946, guid: 09d7ab3b18a9f5c49910a78d2dbbcfea,
-        type: 3}
-      propertyPath: gravMax
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3043338947235441946, guid: 09d7ab3b18a9f5c49910a78d2dbbcfea,
-        type: 3}
-      propertyPath: jumpTime
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3043338947235441946, guid: 09d7ab3b18a9f5c49910a78d2dbbcfea,
-        type: 3}
-      propertyPath: gravAccel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3043338947235441946, guid: 09d7ab3b18a9f5c49910a78d2dbbcfea,
-        type: 3}
-      propertyPath: jumpSpeed
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3043338947235441947, guid: 09d7ab3b18a9f5c49910a78d2dbbcfea,
         type: 3}

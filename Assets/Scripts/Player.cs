@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour 
 {
-    private float hinp, vinp, gravVel;
+    private float hinp, vinp;
     private Vector3 movDir;
     private Transform tx;
     private CharacterController cc;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -110,16 +110,23 @@ public class Player : MonoBehaviour
         dir.Normalize();
 
         movDir.y = 
-            cc.isGrounded ? 0 : movDir.y + FallAccel();
+            airState == AirState.Ground ? 
+                0 : movDir.y + FallAccel();
         dir.y = movDir.y;
         
         movDir = dir;
         cc.Move(movDir * (moveSpeed * Time.deltaTime));
     }
 
+    // Disables gravity and sets a positive y-speed for a brief moment
     private void Jump()
     {
-        // cc.Move(Vector3.up * (jumpVelocity * Time.deltaTime));
+        if (!cc.isGrounded)
+        {
+            Debug.Log("No");
+            return;
+        }
+        
         movDir.y = jumpSpeed;
         gravEnabled = false;
         StartCoroutine(nameof(EndJump));
@@ -134,7 +141,7 @@ public class Player : MonoBehaviour
 
     private float FallAccel()
     {
-        if (!gravEnabled || movDir.y < gravMax) return 0;
+        if (!gravEnabled || movDir.y <= gravMax) return 0;
 
         return -gravAccel * Time.deltaTime;
     }
@@ -143,7 +150,6 @@ public class Player : MonoBehaviour
     {
         if (cc.isGrounded)
         {
-            gravVel = 0;
             airState = AirState.Ground;
         }
         else

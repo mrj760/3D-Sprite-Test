@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class HookHairHead : Enemy
 {
     private const float 
-        painTime = .5f, scaredTime = 1.5f;
+        painTime = .33f, scaredTime = 1.5f;
 
     [SerializeField] private 
         ParticleSystem bloodfx;
@@ -41,54 +41,59 @@ public class HookHairHead : Enemy
     }
 
     // Update is called once per frame
-    new void FixedUpdate()
+    void Update()
     {
         // Move away/toward player if in range and not in pain.
-        if (SeesTarget() && face != Face.pain)
+        if (SeesTarget())
         {
             // doesnt check to limit distance if scared and moving backwards
-            CheckToMove();
+            SeekTarget();
         }
     }
 
-    void CheckToMove()
+    void SeekTarget()
     {
-        switch (face)
+        if (face == Face.happy)
         {
-            case Face.happy:
-                // move toward player with grin
-                SeekTarget(playerObj.transform.position, 1.5f);
-                break;
-            
-            case Face.scared:
-                // Move away from player after hit
-                var vec = 
-                    transform.position + 
-                    (transform.position - playerObj.transform.position);
-                SeekTarget(vec, 1f);
-                break;
-            
-            case Face.pain:
-                // Stand in pain without moving
-                break;
+            SeekTarget(playerObj.transform.position, 1.5f);
+        }
+        else
+        {
+            var away = 
+                transform.position + 
+                (transform.position - playerObj.transform.position);
+            switch (face)
+            {
+                case Face.scared:
+                    // Move away from player after hit
+                    base.SeekTarget(away, 1f, false);
+                    break;
+                
+                case Face.pain:
+                    // short, quick knockback
+                    base.SeekTarget(away, 3f, false);
+                    break;
+                
+                default:
+                    break;
+            }
         }
     }
 
     public override void TakeDamage(float damage)
     {
-        
-        
+        // Set up for either normal hit or dying
         StopCoroutine(nameof(BloodSpurt));
         SetFace(Face.pain);
         base.TakeDamage(damage);
         
         if (lifeState != LifeState.Alive) return;
         
+        // Still alive after taking hit, do normal hit reaction
         StartCoroutine(nameof(BloodSpurt));
         audsc.pitch =    
             Random.Range(.95f, 1.05f);
         audsc.PlayOneShot(hurtSound);
-        
     }
 
     IEnumerator BloodSpurt()
@@ -119,7 +124,7 @@ public class HookHairHead : Enemy
                 StartCoroutine(nameof(ScaredFace));
                 break;
             
-            case Face.happy:
+            default:
                 break;
         }
     }

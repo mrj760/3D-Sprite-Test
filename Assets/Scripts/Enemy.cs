@@ -6,7 +6,7 @@ using Vector3 = UnityEngine.Vector3;
 public class Enemy : MonoBehaviour
 {
     protected GameObject playerObj;
-    protected Rigidbody rb;
+    protected CharacterController cc;
     [SerializeField] protected float moveSpeed=5f;
     [SerializeField] protected float stopDistance=.3f;
     [SerializeField] protected float sightDistance = 10f;
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     protected void Start()
     {
         playerObj = GameObject.Find("Player");
-        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
         
         worldSprite = GetComponentInChildren<WorldSprite>();
         spriteRen = GetComponentInChildren<SpriteRenderer>();
@@ -34,14 +34,19 @@ public class Enemy : MonoBehaviour
         reverseTimer = reverseTime;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        SeekTarget(playerObj.transform.position);
+        FallCheck();
     }
 
-    [SerializeField, Range(0f,1f)] private float 
-        changeVelocitySmoothness = 1f;
-
+    private float yvel = 0f;
+    private void FallCheck()
+    {
+        
+        yvel = cc.isGrounded ? 0 : yvel - Time.deltaTime;
+        cc.Move(new Vector3(0, yvel, 0));
+    }
+    
     protected virtual void SeekTarget(Vector3 target, float moveMult = 1f, bool checkStopDistance = true)
     {
         if (SeesTarget())
@@ -53,17 +58,14 @@ public class Enemy : MonoBehaviour
             if (checkStopDistance && toTarget.magnitude < stopDistance) 
                 return;
 
+            toTarget.y = 0;
             toTarget = 
-                toTarget.normalized * (moveSpeed * moveMult);
-            
-            toTarget.y = 
-                rb.velocity.y;
-            
-            rb.velocity = toTarget;
+                toTarget.normalized * (moveSpeed * moveMult * Time.deltaTime);
+            cc.Move(toTarget);
         
             // sprite flips 180 after a certain amount of time of moving 
             reverseTimer -= 
-                Time.fixedDeltaTime;
+                Time.deltaTime;
             if (reverseTimer <= 0f)
             {
                 worldSprite.Reverse();

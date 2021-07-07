@@ -48,9 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ctx: {fileID: 3043338947451323997}
   moveSpeed: 20
-  jumpVelocity: 20
+  jumpSpeed: 1
+  jumpTime: 0.15
   gravAccel: 1
-  gravMax: -30.3
+  gravMax: -2
   gravEnabled: 1
   weapon: {fileID: 3602907039449730307}
 --- !u!143 &3043338947235441943

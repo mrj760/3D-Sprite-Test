@@ -4814,9 +4814,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5691425762731366051}
   - component: {fileID: 3678272828684301025}
-  - component: {fileID: 1090322129}
-  - component: {fileID: 2029123899}
   - component: {fileID: 5478453932498851821}
+  - component: {fileID: 506515108}
   m_Layer: 0
   m_Name: Hook Hair Head
   m_TagString: Enemy
@@ -4853,46 +4852,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
-  stopDistance: 0
+  stopDistance: 3
   sightDistance: 30
   health: 10
   sprites:
   - {fileID: 21300000, guid: 1d315b0580c00044289cee74aa10668e, type: 3}
   - {fileID: 21300000, guid: 2cb3584756e8f7c488b8513f7d56a246, type: 3}
   - {fileID: 21300000, guid: 2d6e37cdc6e4c50498afbb961db7670b, type: 3}
-  changeVelocitySmoothness: 0.8
   bloodfx: {fileID: 8410983329660008306}
   hurtSound: {fileID: 8300000, guid: 36326a2467e81464497e4fb0d5f78645, type: 3}
---- !u!136 &1090322129
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5691425762731366050}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.2
-  m_Height: 5
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.8, z: 0}
---- !u!54 &2029123899
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5691425762731366050}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 1
+  dieSound: {fileID: 8300000, guid: 7f7550a5d2bd18e40823ac6efe93ff24, type: 3}
 --- !u!82 &5478453932498851821
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4903,11 +4872,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8bd4722c75a5cd749bc8eb906fc5dbae, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4949,7 +4918,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4989,6 +4958,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!143 &506515108
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691425762731366050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 5
+  m_Radius: 2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!1 &5691425763816053760
 GameObject:
   m_ObjectHideFlags: 0
